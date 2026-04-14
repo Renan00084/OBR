@@ -10,9 +10,9 @@ void setup() {
   pinMode(leituraIrd,INPUT);
 
 }
-
+//Branco: entre 0 e 50/ Preto: maior que 100 / Verde: entra 50 e 100
 void loop() {
-  leituraIre = analogRead(ire);
+  /*leituraIre = analogRead(ire);
   leituraIrd = analogRead(ird);
     delay(1000);
     Serial.println(leituraIre);
@@ -47,7 +47,10 @@ void loop() {
 
     }
 
-  }
+  }*/
+  
   
 
 }
+
+
