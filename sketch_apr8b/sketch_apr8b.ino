@@ -1,5 +1,7 @@
 byte ire = A0, ird = A1;
 
+byte sentido1 = 22, sentido2 = 23, enable = 2;
+
 byte leituraIre, leituraIrd;
 
 void setup() {
@@ -8,6 +10,10 @@ void setup() {
   pinMode(ird,INPUT);
   pinMode(leituraIre,INPUT);
   pinMode(leituraIrd,INPUT);
+  pinMode(sentido1, OUTPUT);
+  pinMode(sentido2, OUTPUT);
+  pinMode(enable, OUTPUT);
+  digitalWrite (enable, HIGH);
 
 }
 //Branco: entre 0 e 50/ Preto: maior que 100 / Verde: entra 50 e 100
@@ -48,9 +54,8 @@ void loop() {
     }
 
   }*/
-  
-  
+
+  digitalWrite(sentido1, HIGH);
+  digitalWrite(sentido2, LOW);
 
 }
-
-
