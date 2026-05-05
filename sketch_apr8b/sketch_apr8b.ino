@@ -38,7 +38,7 @@ void loop() {
   Serial.println(leituraIre);
   Serial.println(leituraIrd);
 
-  analogWrite(enable1, 100);
+  analogWrite(enable1, 200);
   digitalWrite(sentido1, HIGH);
   digitalWrite(sentido2, LOW);
 
@@ -50,7 +50,7 @@ void loop() {
   digitalWrite(sentido5, LOW);
   digitalWrite(sentido6, HIGH);
 
-  analogWrite(enable4, 80);
+  analogWrite(enable4, 100);
   digitalWrite(sentido7, HIGH);
   digitalWrite(sentido8, LOW);
 
@@ -132,5 +132,7 @@ void loop() {
     }
 
   }*/
+
+  // Ambos os ensores ficam high quando idenifica preto
 
 }
