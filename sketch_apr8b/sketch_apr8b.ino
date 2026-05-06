@@ -1,4 +1,6 @@
-byte ire = A0, ird = A1;
+byte ire = 31, ird = 30;
+
+byte led = 32;
 
 byte sentido1 = 22, sentido2 = 23, enable1 = 2;
 byte sentido3 = 24, sentido4 = 25, enable2 = 3;
@@ -30,9 +32,13 @@ void setup() {
   pinMode(sentido8, OUTPUT);
   pinMode(enable4, OUTPUT);
 
+  pinMode(led, OUTPUT);
+
 }
 //Branco: entre 0 e 50/ Preto: maior que 100 / Verde: entra 50 e 100
 void loop() {
+  digitalWrite(led, HIGH);
+
   leituraIre = digitalRead(ire);
   leituraIrd = digitalRead(ird);
   Serial.println(leituraIre);
@@ -40,59 +46,61 @@ void loop() {
 
   if(((leituraIre == HIGH) && (leituraIrd == HIGH)) || ((leituraIre == LOW) && (leituraIrd == LOW))){
     //reto
-    analogWrite(enable1, 200); // Direita Frente
+    analogWrite(enable1, 200); // Esquerda Frente
     digitalWrite(sentido1, HIGH);
     digitalWrite(sentido2, LOW);
 
-    digitalWrite(enable2, HIGH); // Direita Atras
+    digitalWrite(enable2, HIGH); // Esquerda Atras
     digitalWrite(sentido3, LOW);
     digitalWrite(sentido4, HIGH);
 
-    digitalWrite(enable3, HIGH); // Esquerda Atras
+    digitalWrite(enable3, HIGH); // Direita Atras
     digitalWrite(sentido5, LOW);
     digitalWrite(sentido6, HIGH);
 
-    analogWrite(enable4, 100); // Esquerda Frente
+    analogWrite(enable4, 120); // Direita Frente
     digitalWrite(sentido7, HIGH);
     digitalWrite(sentido8, LOW);
 
   }else{
     if(((leituraIre == HIGH) && (leituraIrd == LOW))){
       //curva esquerda
-      analogWrite(enable1, 200); // Direita Frente
-      digitalWrite(sentido1, HIGH);
-      digitalWrite(sentido2, LOW);
 
-      digitalWrite(enable2, HIGH); // Direita Atras
-      digitalWrite(sentido3, LOW);
-      digitalWrite(sentido4, HIGH);
+      analogWrite(enable1, 200); // Esquerda Frente
+      digitalWrite(sentido1, LOW);
+      digitalWrite(sentido2, HIGH);
 
-      digitalWrite(enable3, HIGH); // Esquerda Atras
-      digitalWrite(sentido5, HIGH);
-      digitalWrite(sentido6, LOW);
+      digitalWrite(enable2, HIGH); // Esquerda Atras
+      digitalWrite(sentido3, HIGH);
+      digitalWrite(sentido4, LOW);
 
-      analogWrite(enable4, 100); // Esquerda Frente
-      digitalWrite(sentido7, LOW);
-      digitalWrite(sentido8, HIGH);
+      digitalWrite(enable3, LOW); // Direita Atras
+      digitalWrite(sentido5, LOW);
+      digitalWrite(sentido6, HIGH);
+
+      analogWrite(enable4, 0); // Direita Frente
+      digitalWrite(sentido7, HIGH);
+      digitalWrite(sentido8, LOW);
 
     }else{
       if(((leituraIre == LOW) && (leituraIrd == HIGH))){
         //curva direita
-        analogWrite(enable1, 200); // Direita Frente
-        digitalWrite(sentido1, LOW);
-        digitalWrite(sentido2, HIGH);
 
-        digitalWrite(enable2, HIGH); // Direita Atras
-        digitalWrite(sentido3, HIGH);
-        digitalWrite(sentido4, LOW);
+        analogWrite(enable1, 0); // Esquerda Frente
+        digitalWrite(sentido1, HIGH);
+        digitalWrite(sentido2, LOW);
 
-        digitalWrite(enable3, HIGH); // Esquerda Atras
-        digitalWrite(sentido5, LOW);
-        digitalWrite(sentido6, HIGH);
+        digitalWrite(enable2, LOW); // Esquerda Atras
+        digitalWrite(sentido3, LOW);
+        digitalWrite(sentido4, HIGH);
 
-        analogWrite(enable4, 100); // Esquerda Frente
-        digitalWrite(sentido7, HIGH);
-        digitalWrite(sentido8, LOW);
+        digitalWrite(enable3, HIGH); // Direita Atras
+        digitalWrite(sentido5, HIGH);
+        digitalWrite(sentido6, LOW);
+
+        analogWrite(enable4, 120); // Direita Frente
+        digitalWrite(sentido7, LOW);
+        digitalWrite(sentido8, HIGH);
 
       }
     }
