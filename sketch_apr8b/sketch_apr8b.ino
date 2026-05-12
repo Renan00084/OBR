@@ -59,8 +59,8 @@ void loop() {
     digitalWrite(sentido6, HIGH);
 
     analogWrite(enable4, 120); // Direita Frente
-    digitalWrite(sentido7, HIGH);
-    digitalWrite(sentido8, LOW);
+    digitalWrite(sentido7, LOW);
+    digitalWrite(sentido8, HIGH);
 
   }else{
     if(((leituraIre == HIGH) && (leituraIrd == LOW))){
