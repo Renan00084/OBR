@@ -1,6 +1,8 @@
-byte ire = 31, ird = 30;
+/*byte ire = 31 (branco), ird = 30; (cinza)*/
 
-byte led = 32;
+byte ire = A0, ird = A1;
+
+byte led = 32, led2 = 33;
 
 byte sentido1 = 22, sentido2 = 23, enable1 = 2;
 byte sentido3 = 24, sentido4 = 25, enable2 = 3;
@@ -33,11 +35,13 @@ void setup() {
   pinMode(enable4, OUTPUT);
 
   pinMode(led, OUTPUT);
+  pinMode(led2, OUTPUT);
 
 }
 //Branco: entre 0 e 50/ Preto: maior que 100 / Verde: entra 50 e 100
 void loop() {
-  digitalWrite(led, HIGH);
+  /*digitalWrite(led, HIGH);
+  digitalWrite(led2, HIGH);
 
   leituraIre = digitalRead(ire);
   leituraIrd = digitalRead(ird);
@@ -46,7 +50,7 @@ void loop() {
 
   if(((leituraIre == HIGH) && (leituraIrd == HIGH)) || ((leituraIre == LOW) && (leituraIrd == LOW))){
     //reto
-    analogWrite(enable1, 200); // Esquerda Frente
+    analogWrite(enable1, 100); // Esquerda Frente
     digitalWrite(sentido1, HIGH);
     digitalWrite(sentido2, LOW);
 
@@ -58,7 +62,7 @@ void loop() {
     digitalWrite(sentido5, LOW);
     digitalWrite(sentido6, HIGH);
 
-    analogWrite(enable4, 120); // Direita Frente
+    analogWrite(enable4, 100); // Direita Frente
     digitalWrite(sentido7, LOW);
     digitalWrite(sentido8, HIGH);
 
@@ -66,7 +70,7 @@ void loop() {
     if(((leituraIre == HIGH) && (leituraIrd == LOW))){
       //curva esquerda
 
-      analogWrite(enable1, 200); // Esquerda Frente
+      analogWrite(enable1, 100); // Esquerda Frente
       digitalWrite(sentido1, LOW);
       digitalWrite(sentido2, HIGH);
 
@@ -98,92 +102,90 @@ void loop() {
         digitalWrite(sentido5, HIGH);
         digitalWrite(sentido6, LOW);
 
-        analogWrite(enable4, 120); // Direita Frente
-        digitalWrite(sentido7, LOW);
-        digitalWrite(sentido8, HIGH);
-
-      }
-    }
-  }
-
-  /*if(((leituraIre < 300) && (leituraIre > 100)) && ((leituraIrd < 300) && (leituraIrd > 100)) || ((leituraIre > 800) && (leituraIrd > 800))){
-    //ligar os motores no mesmo sentido
-    analogWrite(enable1, 100);
-    digitalWrite(sentido1, HIGH);
-    digitalWrite(sentido2, LOW);
-
-    analogWrite(enable2, 100);
-    digitalWrite(sentido3, HIGH);
-    digitalWrite(sentido4, LOW);
-
-    analogWrite(enable3, 100);
-    digitalWrite(sentido5, HIGH);
-    digitalWrite(sentido6, LOW);
-
-    analogWrite(enable4, 100);
-    digitalWrite(sentido7, HIGH);
-    digitalWrite(sentido8, LOW);
-
-    /*Serial.println("reto");
-    Serial.println(leituraIre);
-    Serial.println(leituraIrd);
-
-  }else{
-    if(((leituraIre < 300) && (leituraIre > 100)) && (leituraIrd > 800)){
-      //curva para direita: troca o sentido das rodas da direita
-      analogWrite(enable1, 100);
-      digitalWrite(sentido1, HIGH);
-      digitalWrite(sentido2, LOW);
-
-      analogWrite(enable2, 100);
-      digitalWrite(sentido3, HIGH);
-      digitalWrite(sentido4, LOW);
-
-      analogWrite(enable3, 100);
-      digitalWrite(sentido5, HIGH);
-      digitalWrite(sentido6, LOW);
-
-      analogWrite(enable4, 100);
-      digitalWrite(sentido7, HIGH);
-      digitalWrite(sentido8, LOW);
-
-      /*Serial.println("direita");
-      Serial.println(leituraIre);
-      Serial.println(leituraIrd);
-      delay(1000);
-
-
-    }else{
-      if((leituraIre > 800) && ((leituraIrd < 300) && (leituraIrd > 100))){
-        //curva pra esquerda: troca o sentido das rodas da esquerda
-
-        analogWrite(enable1, 100);
-        digitalWrite(sentido1, HIGH);
-        digitalWrite(sentido2, LOW);
-
-        analogWrite(enable2, 100);
-        digitalWrite(sentido3, HIGH);
-        digitalWrite(sentido4, LOW);
-
-        analogWrite(enable3, 100);
-        digitalWrite(sentido5, HIGH);
-        digitalWrite(sentido6, LOW);
-
-        analogWrite(enable4, 100);
+        analogWrite(enable4, 100); // Direita Frente
         digitalWrite(sentido7, HIGH);
         digitalWrite(sentido8, LOW);
 
-        /*Serial.println("esquerda");
-        Serial.println(leituraIre);
-        Serial.println(leituraIrd);
-        delay(1000);
+      }
+    }
+  }*/
+// Branco direita: entre 90 e 100/ esquerda: 
+  leituraIre = analogRead(ire);
+  leituraIrd = analogRead(ird);
+  Serial.print("Esquerda: ");
+  Serial.println(leituraIre);
+  Serial.print("Direita: ");
+  Serial.println(leituraIrd);
+
+  digitalWrite(led, HIGH);
+  digitalWrite(led2, HIGH);
+
+
+  if(((leituraIre < 100) && (leituraIrd < 100)) || ((leituraIre > 100) && (leituraIrd > 100))){
+    //reto
+    analogWrite(enable1, 100); // Esquerda Frente
+    digitalWrite(sentido1, HIGH);
+    digitalWrite(sentido2, LOW);
+
+    digitalWrite(enable2, HIGH); // Esquerda Atras
+    digitalWrite(sentido3, LOW);
+    digitalWrite(sentido4, HIGH);
+
+    digitalWrite(enable3, HIGH); // Direita Atras
+    digitalWrite(sentido5, LOW);
+    digitalWrite(sentido6, HIGH);
+
+    analogWrite(enable4, 100); // Direita Frente
+    digitalWrite(sentido7, LOW);
+    digitalWrite(sentido8, HIGH);
+
+  }else{
+    if((leituraIre > 100) && (leituraIrd < 100)){
+      //curva esquerda
+      
+      analogWrite(enable1, 100); // Esquerda Frente
+      digitalWrite(sentido1, LOW);
+      digitalWrite(sentido2, HIGH);
+
+      digitalWrite(enable2, HIGH); // Esquerda Atras
+      digitalWrite(sentido3, HIGH);
+      digitalWrite(sentido4, LOW);
+
+      digitalWrite(enable3, LOW); // Direita Atras
+      digitalWrite(sentido5, LOW);
+      digitalWrite(sentido6, HIGH);
+
+      analogWrite(enable4, 0); // Direita Frente
+      digitalWrite(sentido7, HIGH);
+      digitalWrite(sentido8, LOW);
+
+
+    }else{
+      if((leituraIre < 100) && (leituraIrd > 100)){
+        //curva direita
+
+        analogWrite(enable1, 0); // Esquerda Frente
+        digitalWrite(sentido1, HIGH);
+        digitalWrite(sentido2, LOW);
+
+        digitalWrite(enable2, LOW); // Esquerda Atras
+        digitalWrite(sentido3, LOW);
+        digitalWrite(sentido4, HIGH);
+
+        digitalWrite(enable3, HIGH); // Direita Atras
+        digitalWrite(sentido5, HIGH);
+        digitalWrite(sentido6, LOW);
+
+        analogWrite(enable4, 100); // Direita Frente
+        digitalWrite(sentido7, HIGH);
+        digitalWrite(sentido8, LOW);
 
 
       }
 
     }
 
-  }*/
+  }
 
   // Ambos os sensores ficam high quando idenifica preto
 
