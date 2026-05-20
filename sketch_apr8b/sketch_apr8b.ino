@@ -1,6 +1,6 @@
-/*byte ire = 31 (branco), ird = 30; (cinza)*/
+byte ire = 31, ird = 30; //31 fio branco e 32 fio cinza
 
-byte ire = A0, ird = A1;
+/*byte ire = A0, ird = A1;*/
 
 byte led = 32, led2 = 33;
 
@@ -8,7 +8,6 @@ byte sentido1 = 22, sentido2 = 23, enable1 = 2;
 byte sentido3 = 24, sentido4 = 25, enable2 = 3;
 byte sentido5 = 26, sentido6 = 27, enable3 = 4;
 byte sentido7 = 28, sentido8 = 29, enable4 = 5;
-
 byte leituraIre, leituraIrd;
 
 void setup() {
@@ -40,7 +39,7 @@ void setup() {
 }
 //Branco: entre 0 e 50/ Preto: maior que 100 / Verde: entra 50 e 100
 void loop() {
-  /*digitalWrite(led, HIGH);
+  digitalWrite(led, HIGH);
   digitalWrite(led2, HIGH);
 
   leituraIre = digitalRead(ire);
@@ -54,11 +53,11 @@ void loop() {
     digitalWrite(sentido1, HIGH);
     digitalWrite(sentido2, LOW);
 
-    digitalWrite(enable2, HIGH); // Esquerda Atras
+    analogWrite(enable2, 120); // Esquerda Atras
     digitalWrite(sentido3, LOW);
     digitalWrite(sentido4, HIGH);
 
-    digitalWrite(enable3, HIGH); // Direita Atras
+    analogWrite(enable3, 120); // Direita Atras
     digitalWrite(sentido5, LOW);
     digitalWrite(sentido6, HIGH);
 
@@ -70,11 +69,11 @@ void loop() {
     if(((leituraIre == HIGH) && (leituraIrd == LOW))){
       //curva esquerda
 
-      analogWrite(enable1, 100); // Esquerda Frente
+      analogWrite(enable1, 255); // Esquerda Frente
       digitalWrite(sentido1, LOW);
       digitalWrite(sentido2, HIGH);
 
-      digitalWrite(enable2, HIGH); // Esquerda Atras
+      analogWrite(enable2, 255); // Esquerda Atras
       digitalWrite(sentido3, HIGH);
       digitalWrite(sentido4, LOW);
 
@@ -98,19 +97,19 @@ void loop() {
         digitalWrite(sentido3, LOW);
         digitalWrite(sentido4, HIGH);
 
-        digitalWrite(enable3, HIGH); // Direita Atras
+        analogWrite(enable3, 255); // Direita Atras
         digitalWrite(sentido5, HIGH);
         digitalWrite(sentido6, LOW);
 
-        analogWrite(enable4, 100); // Direita Frente
+        analogWrite(enable4, 255); // Direita Frente
         digitalWrite(sentido7, HIGH);
         digitalWrite(sentido8, LOW);
 
       }
     }
-  }*/
+  }
 // Branco direita: entre 90 e 100/ esquerda: 
-  leituraIre = analogRead(ire);
+  /*leituraIre = analogRead(ire);
   leituraIrd = analogRead(ird);
   Serial.print("Esquerda: ");
   Serial.println(leituraIre);
@@ -186,7 +185,7 @@ void loop() {
 
     }
 
-  }
+  }*/
 
   // Ambos os sensores ficam high quando idenifica preto
 
