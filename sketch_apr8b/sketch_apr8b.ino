@@ -127,7 +127,6 @@ void verde(){
   Serial.print(" RED = ");
   Serial.print(pulseRe);
   Serial.print(" | ");
-  delay(20);
 
   //Seleciona leitura com filtro para verde
   digitalWrite(S2e,HIGH);
@@ -138,7 +137,6 @@ void verde(){
   Serial.print("GREEN = ");
   Serial.print(pulseGe);
   Serial.print(" | ");
-  delay(20);
   
 
   //Seleciona leitura com filtro para azul
@@ -149,7 +147,6 @@ void verde(){
   //Imprime via serial
   Serial.print("BLUE = ");
   Serial.println(pulseBe);
-  delay(20);
 
   if((pulseGe < pulseRe) && (pulseGe < pulseBe)){
     for(byte i = 0; i < 300; i++){
@@ -169,10 +166,6 @@ void verde(){
       digitalWrite(sentido7, HIGH);
       digitalWrite(sentido8, LOW);
 
-      if(i == 200){
-        break;
-
-      }
 
     }
 
