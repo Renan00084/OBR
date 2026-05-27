@@ -1,10 +1,14 @@
 void verde();
+float obstaculo();
 
 byte ire = 31, ird = 30; //31 fio branco e 32 fio cinza
 
 /*byte ire = A0, ird = A1;*/
 
 byte OUTe = 34, S2e = 32, S3e = 33, pulseRe = 0, pulseGe = 0, pulseBe = 0;
+
+byte trigger = 35, echo = 36;
+float duration, distance;
 
 byte sentido1 = 22, sentido2 = 23, enable1 = 2;
 byte sentido3 = 24, sentido4 = 25, enable2 = 3;
@@ -37,7 +41,10 @@ void setup() {
   pinMode(S2e, OUTPUT);
   pinMode(S3e, OUTPUT);
   pinMode(OUTe, INPUT);
-  Serial.begin(115200);
+
+  pinMode(trigger, OUTPUT);
+  pinMode(echo, INPUT);
+  Serial.begin(9600);
 
 }
 //Branco: entre 0 e 50/ Preto: maior que 100 / Verde: entra 50 e 100
@@ -50,17 +57,163 @@ void loop() {
   if(((leituraIre == HIGH) && (leituraIrd == HIGH)) || ((leituraIre == LOW) && (leituraIrd == LOW))){
     //reto
 
-    verde();
+    if(obstaculo() < 15){
+      analogWrite(enable1, 0); // Esquerda Frente
+      digitalWrite(sentido1, LOW);
+      digitalWrite(sentido2, LOW);
+
+      analogWrite(enable2, 0); // Esquerda Atras
+      digitalWrite(sentido3, LOW);
+      digitalWrite(sentido4, LOW);
+
+      analogWrite(enable3, 0); // Direita Atras
+      digitalWrite(sentido5, LOW);
+      digitalWrite(sentido6, LOW);
+
+      analogWrite(enable4, 0); // Direita Frente
+      digitalWrite(sentido7, LOW);
+      digitalWrite(sentido8, LOW);
+
+      delay(1000);
+
+      analogWrite(enable1, 255); // Esquerda Frente
+      digitalWrite(sentido1, LOW);
+      digitalWrite(sentido2, HIGH);
+
+      analogWrite(enable2, 255); // Esquerda Atras
+      digitalWrite(sentido3, HIGH);
+      digitalWrite(sentido4, LOW);
+
+      analogWrite(enable3, 255); // Direita Atras
+      digitalWrite(sentido5, LOW);
+      digitalWrite(sentido6, HIGH);
+
+      analogWrite(enable4, 100); // Direita Frente
+      digitalWrite(sentido7, LOW);
+      digitalWrite(sentido8, HIGH);
+
+      delay(800); //Feito
+
+      analogWrite(enable1, 100); // Esquerda Frente
+      digitalWrite(sentido1, HIGH);
+      digitalWrite(sentido2, LOW);
+
+      analogWrite(enable2, 255); // Esquerda Atras
+      digitalWrite(sentido3, LOW);
+      digitalWrite(sentido4, HIGH);
+
+      analogWrite(enable3, 255); // Direita Atras
+      digitalWrite(sentido5, LOW);
+      digitalWrite(sentido6, HIGH);
+
+      analogWrite(enable4, 100); // Direita Frente
+      digitalWrite(sentido7, LOW);
+      digitalWrite(sentido8, HIGH);
+
+      delay(1000); //Feito
+
+      analogWrite(enable1, 100); // Esquerda Frente
+      digitalWrite(sentido1, HIGH);
+      digitalWrite(sentido2, LOW);
+
+      analogWrite(enable2, 255); // Esquerda Atras
+      digitalWrite(sentido3, LOW);
+      digitalWrite(sentido4, HIGH);
+
+      analogWrite(enable3, 255); // Direita Atras
+      digitalWrite(sentido5, HIGH);
+      digitalWrite(sentido6, LOW);
+
+      analogWrite(enable4, 100); // Direita Frente
+      digitalWrite(sentido7, HIGH);
+      digitalWrite(sentido8, LOW);
+
+      delay(1600); //Feito
+
+      analogWrite(enable1, 100); // Esquerda Frente
+      digitalWrite(sentido1, HIGH);
+      digitalWrite(sentido2, LOW);
+
+      analogWrite(enable2, 255); // Esquerda Atras
+      digitalWrite(sentido3, LOW);
+      digitalWrite(sentido4, HIGH);
+
+      analogWrite(enable3, 255); // Direita Atras
+      digitalWrite(sentido5, LOW);
+      digitalWrite(sentido6, HIGH);
+
+      analogWrite(enable4, 100); // Direita Frente
+      digitalWrite(sentido7, LOW);
+      digitalWrite(sentido8, HIGH);
+
+      delay(2000);
+
+      analogWrite(enable1, 100); // Esquerda Frente
+      digitalWrite(sentido1, HIGH);
+      digitalWrite(sentido2, LOW);
+
+      analogWrite(enable2, 255); // Esquerda Atras
+      digitalWrite(sentido3, LOW);
+      digitalWrite(sentido4, HIGH);
+
+      analogWrite(enable3, 255); // Direita Atras
+      digitalWrite(sentido5, HIGH);
+      digitalWrite(sentido6, LOW);
+
+      analogWrite(enable4, 100); // Direita Frente
+      digitalWrite(sentido7, HIGH);
+      digitalWrite(sentido8, LOW);
+
+      delay(500);
+
+      analogWrite(enable1, 100); // Esquerda Frente
+      digitalWrite(sentido1, HIGH);
+      digitalWrite(sentido2, LOW);
+
+      analogWrite(enable2, 255); // Esquerda Atras
+      digitalWrite(sentido3, LOW);
+      digitalWrite(sentido4, HIGH);
+
+      analogWrite(enable3, 255); // Direita Atras
+      digitalWrite(sentido5, LOW);
+      digitalWrite(sentido6, HIGH);
+
+      analogWrite(enable4, 100); // Direita Frente
+      digitalWrite(sentido7, LOW);
+      digitalWrite(sentido8, HIGH);
+
+      delay(500);
+
+      analogWrite(enable1, 100); // Esquerda Frente
+      digitalWrite(sentido1, LOW);
+      digitalWrite(sentido2, HIGH);
+
+      analogWrite(enable2, 255); // Esquerda Atras
+      digitalWrite(sentido3, HIGH);
+      digitalWrite(sentido4, LOW);
+
+      analogWrite(enable3, 255); // Direita Atras
+      digitalWrite(sentido5, LOW);
+      digitalWrite(sentido6, HIGH);
+
+      analogWrite(enable4, 100); // Direita Frente
+      digitalWrite(sentido7, LOW);
+      digitalWrite(sentido8, HIGH);
+
+      delay(500);
+
+
+    }
 
     analogWrite(enable1, 100); // Esquerda Frente
     digitalWrite(sentido1, HIGH);
     digitalWrite(sentido2, LOW);
 
-    analogWrite(enable2, 120); // Esquerda Atras
+    analogWrite(enable2, 255); // Esquerda Atras
     digitalWrite(sentido3, LOW);
     digitalWrite(sentido4, HIGH);
 
-    analogWrite(enable3, 120); // Direita Atras
+    analogWrite(enable3, 255); // Direita Atras
     digitalWrite(sentido5, LOW);
     digitalWrite(sentido6, HIGH);
 
@@ -71,8 +224,6 @@ void loop() {
   }else{
     if(((leituraIre == HIGH) && (leituraIrd == LOW))){
       //curva esquerda
-
-      verde();
 
       analogWrite(enable1, 255); // Esquerda Frente
       digitalWrite(sentido1, LOW);
@@ -93,8 +244,6 @@ void loop() {
     }else{
       if(((leituraIre == LOW) && (leituraIrd == HIGH))){
         //curva direita
-
-        verde();
 
         analogWrite(enable1, 0); // Esquerda Frente
         digitalWrite(sentido1, HIGH);
@@ -170,5 +319,20 @@ void verde(){
     }
 
   }
+
+}
+
+float obstaculo(){
+  digitalWrite(trigger, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigger, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigger, LOW);
+  duration = pulseIn(echo, HIGH);
+  distance = (duration*.0343)/2; //0.0343 é a velocidade do som em cm/μs
+  Serial.print("Distance: ");
+  Serial.println(distance);
+
+  return distance;
 
 }
