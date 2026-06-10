@@ -57,6 +57,8 @@ void loop() {
   if(((leituraIre == HIGH) && (leituraIrd == HIGH)) || ((leituraIre == LOW) && (leituraIrd == LOW))){
     //reto
 
+    verde();
+
     if(obstaculo() < 15){
       cont++;
       if(cont % 2 == 0){
@@ -89,6 +91,8 @@ void loop() {
     if(((leituraIre == HIGH) && (leituraIrd == LOW))){
       //curva esquerda
 
+      verde();
+
       analogWrite(enable1, 255); // Esquerda Frente
       digitalWrite(sentido1, LOW);
       digitalWrite(sentido2, HIGH);
@@ -110,6 +114,8 @@ void loop() {
     }else{
       if(((leituraIre == LOW) && (leituraIrd == HIGH))){
         //curva direita
+
+        verde();
 
         analogWrite(enable1, 100); // Esquerda Frente
         digitalWrite(sentido1, HIGH);
