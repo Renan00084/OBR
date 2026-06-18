@@ -57,15 +57,13 @@ void loop() {
   if(((leituraIre == HIGH) && (leituraIrd == HIGH)) || ((leituraIre == LOW) && (leituraIrd == LOW))){
     //reto
 
-    verde();
-
     if(obstaculo() < 15){
       cont++;
       if(cont % 2 == 0){
-        desvioE();
+        desvioD();
 
       }else{
-        desvioD();
+        desvioE();
 
       }  
 
@@ -91,8 +89,6 @@ void loop() {
     if(((leituraIre == HIGH) && (leituraIrd == LOW))){
       //curva esquerda
 
-      verde();
-
       analogWrite(enable1, 255); // Esquerda Frente
       digitalWrite(sentido1, LOW);
       digitalWrite(sentido2, HIGH);
@@ -114,8 +110,6 @@ void loop() {
     }else{
       if(((leituraIre == LOW) && (leituraIrd == HIGH))){
         //curva direita
-
-        verde();
 
         analogWrite(enable1, 100); // Esquerda Frente
         digitalWrite(sentido1, HIGH);
@@ -429,95 +423,113 @@ void desvioE(){
 
   delay(1000);
 
-  analogWrite(enable1, 255); // Esquerda Frente
+  digitalWrite(enable1, HIGH); // Esquerda Frente
   digitalWrite(sentido1, LOW);
   digitalWrite(sentido2, HIGH);
 
-  analogWrite(enable2, 255); // Esquerda Atras
+  digitalWrite(enable2, HIGH); // Esquerda Atras
   digitalWrite(sentido3, HIGH);
   digitalWrite(sentido4, LOW);
 
-  analogWrite(enable3, 255); // Direita Atras
+  digitalWrite(enable3, HIGH); // Direita Atras
   digitalWrite(sentido5, LOW);
   digitalWrite(sentido6, HIGH);
 
-  analogWrite(enable4, 100); // Direita Frente
+  digitalWrite(enable4, HIGH); // Direita Frente
   digitalWrite(sentido7, LOW);
   digitalWrite(sentido8, HIGH);
 
   delay(800); //Feito
 
-  analogWrite(enable1, 100); // Esquerda Frente
+  digitalWrite(enable1, HIGH); // Esquerda Frente
   digitalWrite(sentido1, HIGH);
   digitalWrite(sentido2, LOW);
 
-  analogWrite(enable2, 255); // Esquerda Atras
+  digitalWrite(enable2, HIGH); // Esquerda Atras
   digitalWrite(sentido3, LOW);
   digitalWrite(sentido4, HIGH);
 
-  analogWrite(enable3, 255); // Direita Atras
+  digitalWrite(enable3, HIGH); // Direita Atras
   digitalWrite(sentido5, LOW);
   digitalWrite(sentido6, HIGH);
 
-  analogWrite(enable4, 100); // Direita Frente
+  digitalWrite(enable4, HIGH); // Direita Frente
   digitalWrite(sentido7, LOW);
   digitalWrite(sentido8, HIGH);
-
-  delay(1000); //Feito
-
-  analogWrite(enable1, 100); // Esquerda Frente
-  digitalWrite(sentido1, HIGH);
-  digitalWrite(sentido2, LOW);
-
-  analogWrite(enable2, 255); // Esquerda Atras
-  digitalWrite(sentido3, LOW);
-  digitalWrite(sentido4, HIGH);
-
-  analogWrite(enable3, 255); // Direita Atras
-  digitalWrite(sentido5, HIGH);
-  digitalWrite(sentido6, LOW);
-
-  analogWrite(enable4, 100); // Direita Frente
-  digitalWrite(sentido7, HIGH);
-  digitalWrite(sentido8, LOW);
 
   delay(1600); //Feito
 
-  analogWrite(enable1, 100); // Esquerda Frente
+  digitalWrite(enable1, HIGH); // Esquerda Frente
   digitalWrite(sentido1, HIGH);
   digitalWrite(sentido2, LOW);
 
-  analogWrite(enable2, 255); // Esquerda Atras
+  digitalWrite(enable2, HIGH); // Esquerda Atras
   digitalWrite(sentido3, LOW);
   digitalWrite(sentido4, HIGH);
 
-  analogWrite(enable3, 255); // Direita Atras
-  digitalWrite(sentido5, LOW);
-  digitalWrite(sentido6, HIGH);
-
-  analogWrite(enable4, 100); // Direita Frente
-  digitalWrite(sentido7, LOW);
-  digitalWrite(sentido8, HIGH);
-
-  delay(900);
-
-  analogWrite(enable1, 100); // Esquerda Frente
-  digitalWrite(sentido1, HIGH);
-  digitalWrite(sentido2, LOW);
-
-  analogWrite(enable2, 255); // Esquerda Atras
-  digitalWrite(sentido3, LOW);
-  digitalWrite(sentido4, HIGH);
-
-  analogWrite(enable3, 255); // Direita Atras
+  digitalWrite(enable3, HIGH); // Direita Atras
   digitalWrite(sentido5, HIGH);
   digitalWrite(sentido6, LOW);
 
-  analogWrite(enable4, 100); // Direita Frente
+  digitalWrite(enable4, HIGH); // Direita Frente
   digitalWrite(sentido7, HIGH);
   digitalWrite(sentido8, LOW);
 
-  delay(1600);
+  delay(1000); //Feito
+
+  digitalWrite(enable1, HIGH); // Esquerda Frente
+  digitalWrite(sentido1, HIGH);
+  digitalWrite(sentido2, LOW);
+
+  digitalWrite(enable2, HIGH); // Esquerda Atras
+  digitalWrite(sentido3, LOW);
+  digitalWrite(sentido4, HIGH);
+
+  digitalWrite(enable3, HIGH); // Direita Atras
+  digitalWrite(sentido5, LOW);
+  digitalWrite(sentido6, HIGH);
+
+  digitalWrite(enable4, HIGH); // Direita Frente
+  digitalWrite(sentido7, LOW);
+  digitalWrite(sentido8, HIGH);
+
+  delay(1300);
+
+  digitalWrite(enable1, HIGH); // Esquerda Frente
+  digitalWrite(sentido1, HIGH);
+  digitalWrite(sentido2, LOW);
+
+  digitalWrite(enable2, HIGH); // Esquerda Atras
+  digitalWrite(sentido3, LOW);
+  digitalWrite(sentido4, HIGH);
+
+  digitalWrite(enable3, HIGH); // Direita Atras
+  digitalWrite(sentido5, HIGH);
+  digitalWrite(sentido6, LOW);
+
+  digitalWrite(enable4, HIGH); // Direita Frente
+  digitalWrite(sentido7, HIGH);
+  digitalWrite(sentido8, LOW);
+
+  delay(1200);
+
+  digitalWrite(enable1, HIGH); // Esquerda Frente
+  digitalWrite(sentido1, HIGH);
+  digitalWrite(sentido2, LOW);
+
+  digitalWrite(enable2, HIGH); // Esquerda Atras
+  digitalWrite(sentido3, LOW);
+  digitalWrite(sentido4, HIGH);
+
+  digitalWrite(enable3, HIGH); // Direita Atras
+  digitalWrite(sentido5, LOW);
+  digitalWrite(sentido6, HIGH);
+
+  digitalWrite(enable4, HIGH); // Direita Frente
+  digitalWrite(sentido7, LOW);
+  digitalWrite(sentido8, HIGH);
+
+  delay(600);
 
 }
 
@@ -540,113 +552,113 @@ void desvioD(){
 
   delay(1000);
 
-  analogWrite(enable1, 255); // Esquerda Frente
+  digitalWrite(enable1, HIGH); // Esquerda Frente
   digitalWrite(sentido1, HIGH);
   digitalWrite(sentido2, LOW);
 
-  analogWrite(enable2, 255); // Esquerda Atras
+  digitalWrite(enable2, HIGH); // Esquerda Atras
   digitalWrite(sentido3, LOW);
   digitalWrite(sentido4, HIGH);
 
-  analogWrite(enable3, 255); // Direita Atras
+  digitalWrite(enable3, HIGH); // Direita Atras
   digitalWrite(sentido5, HIGH);
   digitalWrite(sentido6, LOW);
 
-  analogWrite(enable4, 255); // Direita Frente
+  digitalWrite(enable4, HIGH); // Direita Frente
   digitalWrite(sentido7, HIGH);
   digitalWrite(sentido8, LOW);
 
-  delay(800); //Feito
+  delay(1000); //Feito
 
-  analogWrite(enable1, 255); // Esquerda Frente
+  digitalWrite(enable1, HIGH); // Esquerda Frente
   digitalWrite(sentido1, HIGH);
   digitalWrite(sentido2, LOW);
 
-  analogWrite(enable2, 255); // Esquerda Atras
+  digitalWrite(enable2, HIGH); // Esquerda Atras
   digitalWrite(sentido3, LOW);
   digitalWrite(sentido4, HIGH);
 
-  analogWrite(enable3, 255); // Direita Atras
+  digitalWrite(enable3, HIGH); // Direita Atras
   digitalWrite(sentido5, LOW);
   digitalWrite(sentido6, HIGH);
 
-  analogWrite(enable4, 255); // Direita Frente
+  digitalWrite(enable4, HIGH); // Direita Frente
   digitalWrite(sentido7, LOW);
   digitalWrite(sentido8, HIGH);
 
-  delay(1400); //Feito
+  delay(1600); //Feito
 
-  analogWrite(enable1, 255); // Esquerda Frente
+  digitalWrite(enable1, HIGH); // Esquerda Frente
   digitalWrite(sentido1, LOW);
   digitalWrite(sentido2, HIGH);
 
-  analogWrite(enable2, 255); // Esquerda Atras
+  digitalWrite(enable2, HIGH); // Esquerda Atras
   digitalWrite(sentido3, HIGH);
   digitalWrite(sentido4, LOW);
 
-  analogWrite(enable3, 255); // Direita Atras
+  digitalWrite(enable3, HIGH); // Direita Atras
   digitalWrite(sentido5, LOW);
   digitalWrite(sentido6, HIGH);
 
-  analogWrite(enable4, 255); // Direita Frente
+  digitalWrite(enable4, HIGH); // Direita Frente
   digitalWrite(sentido7, LOW);
   digitalWrite(sentido8, HIGH);
 
   delay(800); //Feito
 
-  analogWrite(enable1, 255); // Esquerda Frente
+  digitalWrite(enable1, HIGH); // Esquerda Frente
   digitalWrite(sentido1, HIGH);
   digitalWrite(sentido2, LOW);
 
-  analogWrite(enable2, 255); // Esquerda Atras
+  digitalWrite(enable2, HIGH); // Esquerda Atras
   digitalWrite(sentido3, LOW);
   digitalWrite(sentido4, HIGH);
 
-  analogWrite(enable3, 255); // Direita Atras
+  digitalWrite(enable3, HIGH); // Direita Atras
   digitalWrite(sentido5, LOW);
   digitalWrite(sentido6, HIGH);
 
-  analogWrite(enable4, 255); // Direita Frente
+  digitalWrite(enable4, HIGH); // Direita Frente
   digitalWrite(sentido7, LOW);
   digitalWrite(sentido8, HIGH);
 
-  delay(1000);
+  delay(1200);
 
-  analogWrite(enable1, 255); // Esquerda Frente
+  digitalWrite(enable1, HIGH); // Esquerda Frente
   digitalWrite(sentido1, LOW);
   digitalWrite(sentido2, HIGH);
 
-  analogWrite(enable2, 255); // Esquerda Atras
+  digitalWrite(enable2, HIGH); // Esquerda Atras
   digitalWrite(sentido3, HIGH);
   digitalWrite(sentido4, LOW);
 
-  analogWrite(enable3, 255); // Direita Atras
+  digitalWrite(enable3, HIGH); // Direita Atras
   digitalWrite(sentido5, LOW);
   digitalWrite(sentido6, HIGH);
 
-  analogWrite(enable4, 255); // Direita Frente
+  digitalWrite(enable4, HIGH); // Direita Frente
   digitalWrite(sentido7, LOW);
   digitalWrite(sentido8, HIGH);
 
-  delay(600);
+  delay(800);
 
-  analogWrite(enable1, 255); // Esquerda Frente
+  digitalWrite(enable1, HIGH); // Esquerda Frente
   digitalWrite(sentido1, HIGH);
   digitalWrite(sentido2, LOW);
 
-  analogWrite(enable2, 255); // Esquerda Atras
+  digitalWrite(enable2, HIGH); // Esquerda Atras
   digitalWrite(sentido3, LOW);
   digitalWrite(sentido4, HIGH);
 
-  analogWrite(enable3, 255); // Direita Atras
+  digitalWrite(enable3, HIGH); // Direita Atras
   digitalWrite(sentido5, LOW);
   digitalWrite(sentido6, HIGH);
 
-  analogWrite(enable4, 255); // Direita Frente
+  digitalWrite(enable4, HIGH); // Direita Frente
   digitalWrite(sentido7, LOW);
   digitalWrite(sentido8, HIGH);
 
-  delay(500);
+  delay(900);
 
 
 }
