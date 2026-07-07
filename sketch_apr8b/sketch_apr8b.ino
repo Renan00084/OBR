@@ -7,7 +7,7 @@ byte ire = 31, ird = 30; //31 fio branco e 32 fio cinza
 
 /*byte ire = A0, ird = A1;*/
 
-byte OUTe = 34, S2e = 32, S3e = 33, pulseRe = 0, pulseGe = 0, pulseBe = 0;
+byte OUTd = 34, S2d = 32, S3d = 33, pulseRd = 0, pulseGd = 0, pulseBd = 0;
 
 byte trigger = 35, echo = 36, cont = 0;
 float duration, distance;
@@ -40,9 +40,9 @@ void setup() {
   pinMode(sentido8, OUTPUT);
   pinMode(enable4, OUTPUT);
 
-  pinMode(S2e, OUTPUT);
-  pinMode(S3e, OUTPUT);
-  pinMode(OUTe, INPUT);
+  pinMode(S2d, OUTPUT);
+  pinMode(S3d, OUTPUT);
+  pinMode(OUTd, INPUT);
 
   pinMode(trigger, OUTPUT);
   pinMode(echo, INPUT);
@@ -57,7 +57,9 @@ void loop() {
   if(((leituraIre == HIGH) && (leituraIrd == HIGH)) || ((leituraIre == LOW) && (leituraIrd == LOW))){
     //reto
 
-    if(obstaculo() < 15){
+    verde();
+
+    /*if(obstaculo() < 15){
       cont++;
       if(cont % 2 == 0){
         desvioD();
@@ -67,7 +69,7 @@ void loop() {
 
       }  
 
-    }
+    }*/
 
     analogWrite(enable1, 100); // Esquerda Frente
     digitalWrite(sentido1, HIGH);
@@ -88,6 +90,8 @@ void loop() {
   }else{
     if(((leituraIre == HIGH) && (leituraIrd == LOW))){
       //curva esquerda
+
+      verde();
 
       analogWrite(enable1, 255); // Esquerda Frente
       digitalWrite(sentido1, LOW);
@@ -110,6 +114,8 @@ void loop() {
     }else{
       if(((leituraIre == LOW) && (leituraIrd == HIGH))){
         //curva direita
+
+        verde();
 
         analogWrite(enable1, 100); // Esquerda Frente
         digitalWrite(sentido1, HIGH);
@@ -136,36 +142,36 @@ void loop() {
 
 void verde(){
   //Seleciona leitura com filtro para vermelho
-  digitalWrite(S2e,LOW);
-  digitalWrite(S3e,LOW);
+  digitalWrite(S2d,LOW);
+  digitalWrite(S3d,LOW);
   //Lê duração do pulso em LOW
-  pulseRe = pulseIn(OUTe, LOW);
+  pulseRd = pulseIn(OUTd, LOW);
   //Imprime via serial
   Serial.print(" RED = ");
-  Serial.print(pulseRe);
+  Serial.print(pulseRd);
   Serial.print(" | ");
 
   //Seleciona leitura com filtro para verde
-  digitalWrite(S2e,HIGH);
-  digitalWrite(S3e,HIGH);
+  digitalWrite(S2d,HIGH);
+  digitalWrite(S3d,HIGH);
   //Lê duração do pulso em LOW
-  pulseGe = pulseIn(OUTe, LOW);
+  pulseGd = pulseIn(OUTd, LOW);
   //Imprime via serial
   Serial.print("GREEN = ");
-  Serial.print(pulseGe);
+  Serial.print(pulseGd);
   Serial.print(" | ");
   
 
   //Seleciona leitura com filtro para azul
-  digitalWrite(S2e, LOW);
-  digitalWrite(S3e,HIGH);
+  digitalWrite(S2d, LOW);
+  digitalWrite(S3d,HIGH);
   //Lê duração do pulso em LOW
-  pulseBe = pulseIn(OUTe, LOW);
+  pulseBd = pulseIn(OUTd, LOW);
   //Imprime via serial
   Serial.print("BLUE = ");
-  Serial.println(pulseBe);
+  Serial.println(pulseBd);
 
-  if((pulseGe < pulseRe) && (pulseGe < pulseBe)){
+  if((pulseGd < pulseBd) && (pulseGd < pulseRd) && (pulseGd > 20) && (pulseGd < 60)){
     analogWrite(enable1, 0); // Esquerda Frente
     digitalWrite(sentido1, LOW);
     digitalWrite(sentido2, LOW);
@@ -180,6 +186,42 @@ void verde(){
 
     analogWrite(enable4, 0); // Direita Frente
     digitalWrite(sentido7, LOW);
+    digitalWrite(sentido8, LOW);
+
+    delay(1000);
+
+    analogWrite(enable1, 100); // Esquerda Frente
+    digitalWrite(sentido1, HIGH);
+    digitalWrite(sentido2, LOW);
+
+    analogWrite(enable2, 255); // Esquerda Atras
+    digitalWrite(sentido3, LOW);
+    digitalWrite(sentido4, HIGH);
+
+    analogWrite(enable3, 255); // Direita Atras
+    digitalWrite(sentido5, LOW);
+    digitalWrite(sentido6, HIGH);
+
+    analogWrite(enable4, 100); // Direita Frente
+    digitalWrite(sentido7, LOW);
+    digitalWrite(sentido8, HIGH);
+
+    delay(350);
+
+    analogWrite(enable1, 255); // Esquerda Frente
+    digitalWrite(sentido1, HIGH);
+    digitalWrite(sentido2, LOW);
+
+    digitalWrite(enable2, HIGH); // Esquerda Atras
+    digitalWrite(sentido3, LOW);
+    digitalWrite(sentido4, HIGH);
+
+    digitalWrite(enable3, HIGH); // Direita Atras
+    digitalWrite(sentido5, HIGH);
+    digitalWrite(sentido6, LOW);
+
+    analogWrite(enable4, 255); // Direita Frente
+    digitalWrite(sentido7, HIGH);
     digitalWrite(sentido8, LOW);
 
     delay(1000);
