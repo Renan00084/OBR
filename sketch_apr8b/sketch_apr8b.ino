@@ -144,8 +144,9 @@ void verde(){
   //Seleciona leitura com filtro para vermelho
   digitalWrite(S2d,LOW);
   digitalWrite(S3d,LOW);
+  delayMicroseconds(50);
   //Lê duração do pulso em LOW
-  pulseRd = pulseIn(OUTd, LOW);
+  pulseRd = pulseIn(OUTd, LOW, 25000);
   //Imprime via serial
   Serial.print(" RED = ");
   Serial.print(pulseRd);
@@ -154,8 +155,9 @@ void verde(){
   //Seleciona leitura com filtro para verde
   digitalWrite(S2d,HIGH);
   digitalWrite(S3d,HIGH);
+  delayMicroseconds(50);
   //Lê duração do pulso em LOW
-  pulseGd = pulseIn(OUTd, LOW);
+  pulseGd = pulseIn(OUTd, LOW, 25000);
   //Imprime via serial
   Serial.print("GREEN = ");
   Serial.print(pulseGd);
@@ -165,8 +167,9 @@ void verde(){
   //Seleciona leitura com filtro para azul
   digitalWrite(S2d, LOW);
   digitalWrite(S3d,HIGH);
+  delayMicroseconds(50);
   //Lê duração do pulso em LOW
-  pulseBd = pulseIn(OUTd, LOW);
+  pulseBd = pulseIn(OUTd, LOW, 25000);
   //Imprime via serial
   Serial.print("BLUE = ");
   Serial.println(pulseBd);
