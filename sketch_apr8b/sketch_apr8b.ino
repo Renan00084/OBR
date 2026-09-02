@@ -62,7 +62,7 @@ void loop() {
   if(((leituraIre == HIGH) && (leituraIrd == HIGH)) || ((leituraIre == LOW) && (leituraIrd == LOW))){
     //reto
 
-    /*if(obstaculo() < 15){
+    if(obstaculo() < 15){
       cont++;
       if(cont % 2 == 0){
         desvioD();
@@ -72,7 +72,8 @@ void loop() {
 
       }  
 
-    }*/
+    }
+
     verde();
 
     Serial.println("Saí do if");
@@ -113,7 +114,7 @@ void loop() {
       digitalWrite(sentido7, HIGH);
       digitalWrite(sentido8, LOW);
 
-      delay(300);
+      delay(200 );
 
     }else{
       if(((leituraIre == LOW) && (leituraIrd == HIGH))){
@@ -135,7 +136,7 @@ void loop() {
         digitalWrite(sentido7, HIGH);
         digitalWrite(sentido8, LOW);
 
-        delay(300);
+        delay(200);
 
       }
     }
@@ -224,7 +225,7 @@ void verde() {
   // Validação das leituras
   if ((pulseGd != 0) && (pulseBd != 0) && (pulseRd != 0)) {
     // Menor valor de pulso = maior intensidade da cor
-    /*if(((pulseGd < (pulseBd - 5)) && (pulseGd < (pulseRd - 5)) && (pulseGd > 20) && (pulseGd < 100)) && ((pulseGe < (pulseBe - 5)) && (pulseGe < (pulseRe - 5)) && (pulseGe > 20) && (pulseGe < 100))){
+    /*if(((pulseGd < (pulseBd - 1)) && (pulseGd < (pulseRd - 1)) && (pulseGd > 20) && (pulseGd < 100)) && ((pulseGe < (pulseBe - 1)) && (pulseGe < (pulseRe - 1)) && (pulseGe > 20) && (pulseGe < 100))){
       Serial.println("Beco sem saída");
       analogWrite(enable1, 0); // Esquerda Frente
       digitalWrite(sentido1, LOW);
@@ -262,7 +263,7 @@ void verde() {
 
       delay(2000); //Feito
     }else{*/
-      /*if ((pulseGd < (pulseBd - 5)) && (pulseGd < (pulseRd - 5)) && (pulseGd > 20) && (pulseGd < 100)) {
+      if ((pulseGd < (pulseBd - 5)) && (pulseGd < (pulseRd - 5)) && (pulseGd > 20) && (pulseGd < 150)) {
         Serial.println("Direita verde");
         analogWrite(enable1, 0); // Esquerda Frente
         digitalWrite(sentido1, LOW);
@@ -316,8 +317,8 @@ void verde() {
         digitalWrite(sentido7, HIGH);
         digitalWrite(sentido8, LOW);
 
-        delay(1000);
-      }else{*/
+        delay(600);
+      }else{
         if ((pulseGe < (pulseBe - 5)) && (pulseGe < (pulseRe - 5)) && (pulseGe > 20) && (pulseGe < 100)) {
           Serial.print("Esquerda verde");
           analogWrite(enable1, 0); // Esquerda Frente
@@ -372,13 +373,35 @@ void verde() {
           digitalWrite(sentido7, LOW);
           digitalWrite(sentido8, HIGH);
 
-          delay(700);
+          delay(400);
 
           Serial.println("Terminou de executar verde esquerda");
 
-        }
+        }/*else{
+          if((pulseRe < (pulseBe - 5)) && (pulseRe < (pulseGe - 5)) && (pulseRe > 20) && (pulseRe < 100)){
+            Serial.print("Parar vermelho");
+            analogWrite(enable1, 0); // Esquerda Frente
+            digitalWrite(sentido1, LOW);
+            digitalWrite(sentido2, LOW);
+
+            analogWrite(enable2, 0); // Esquerda Atras
+            digitalWrite(sentido3, LOW);
+            digitalWrite(sentido4, LOW);
+
+            analogWrite(enable3, 0); // Direita Atras
+            digitalWrite(sentido5, LOW);
+            digitalWrite(sentido6, LOW);
+
+            analogWrite(enable4, 0); // Direita Frente
+            digitalWrite(sentido7, LOW);
+            digitalWrite(sentido8, LOW);
+
+            delay(7000);
+
+          }*/
+        //}
       //}
-    //}
+    }
   }
 }
 
@@ -871,3 +894,4 @@ void desvioD(){
 
   delay(700);
 }
+
