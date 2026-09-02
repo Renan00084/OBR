@@ -9,9 +9,13 @@ byte ire = 31, ird = 30; //31 fio branco e 32 fio cinza
 /*byte ire = A0, ird = A1;*/
 
 const int numAmostras = 5;
-int arrayR[numAmostras];
-int arrayG[numAmostras];
-int arrayB[numAmostras];
+int arrayRe[numAmostras];
+int arrayGe[numAmostras];
+int arrayBe[numAmostras];
+int arrayRd[numAmostras];
+int arrayGd[numAmostras];
+int arrayBd[numAmostras];
+
 
 byte OUTd = 34, S2d = 32, S3d = 33, pulseRd = 0, pulseGd = 0, pulseBd = 0;
 byte OUTe = 37, S2e = 38, S3e = 39, pulseRe = 0, pulseGe = 0, pulseBe = 0;
@@ -153,70 +157,64 @@ void verde() {
   //LEITURA SENSOR DIREITA
   Serial.println("Leitura direita");
 
-  //Seleciona leitura com filtro para vermelho
-  digitalWrite(S2d,LOW);
-  digitalWrite(S3d,LOW);
-  delayMicroseconds(50);
+  for (int i = 0; i < numAmostras; i++) {
+    // Vermelho
+    digitalWrite(S2d, LOW);
+    digitalWrite(S3d, LOW);
+    delayMicroseconds(50);
+    arrayRd[i] = pulseIn(OUTd, LOW, 10000);
 
-  //Lê duração do pulso em LOW
-  pulseRd = pulseIn(OUTd, LOW, 25000);
+    // Verde
+    digitalWrite(S2d, HIGH);
+    digitalWrite(S3d, HIGH);
+    delayMicroseconds(50);
+    arrayGd[i] = pulseIn(OUTd, LOW, 10000);
 
-  //Imprime via serial
-  Serial.print(" RED = ");
+    // Azul
+    digitalWrite(S2d, LOW);
+    digitalWrite(S3d, HIGH);
+    delayMicroseconds(50);
+    arrayBd[i] = pulseIn(OUTd, LOW, 10000);
+  }
+
+  // Calcula a mediana
+  int pulseRd = calcularMediana(arrayRd);
+  int pulseGd = calcularMediana(arrayGd);
+  int pulseBd = calcularMediana(arrayBd);
+
+  // Imprime os valores filtrados
+  Serial.print("RED = ");
   Serial.print(pulseRd);
-
-  //Seleciona leitura com filtro para verde
-  digitalWrite(S2d,HIGH);
-  digitalWrite(S3d,HIGH);
-  delayMicroseconds(50);
-
-  //Lê duração do pulso em LOW
-  pulseGd = pulseIn(OUTd, LOW, 25000);
-  
-  //Imprime via serial
-  Serial.print("GREEN = ");
+  Serial.print(" | GREEN = ");
   Serial.print(pulseGd);
-
-  //Seleciona leitura com filtro para azul
-  digitalWrite(S2d, LOW);
-  digitalWrite(S3d,HIGH);
-  delayMicroseconds(50);
-
-  //Lê duração do pulso em LOW
-  pulseBd = pulseIn(OUTd, LOW, 25000);
-
-  //Imprime via serial
-  Serial.print("BLUE = ");
+  Serial.print(" | BLUE = ");
   Serial.println(pulseBd);
 
-  //LEITURA SENSOR ESQUERDA
-  Serial.println("Leitura Esquerda");
-
-// Coleta as amostras (com timeout reduzido para 10ms para leitura mais rápida)
+  // Coleta as amostras (com timeout reduzido para 10ms para leitura mais rápida)
   for (int i = 0; i < numAmostras; i++) {
     // Vermelho
     digitalWrite(S2e, LOW);
     digitalWrite(S3e, LOW);
     delayMicroseconds(50);
-    arrayR[i] = pulseIn(OUTe, LOW, 10000);
+    arrayRe[i] = pulseIn(OUTe, LOW, 10000);
 
     // Verde
     digitalWrite(S2e, HIGH);
     digitalWrite(S3e, HIGH);
     delayMicroseconds(50);
-    arrayG[i] = pulseIn(OUTe, LOW, 10000);
+    arrayGe[i] = pulseIn(OUTe, LOW, 10000);
 
     // Azul
     digitalWrite(S2e, LOW);
     digitalWrite(S3e, HIGH);
     delayMicroseconds(50);
-    arrayB[i] = pulseIn(OUTe, LOW, 10000);
+    arrayBe[i] = pulseIn(OUTe, LOW, 10000);
   }
 
   // Calcula a mediana
-  int pulseRe = calcularMediana(arrayR);
-  int pulseGe = calcularMediana(arrayG);
-  int pulseBe = calcularMediana(arrayB);
+  int pulseRe = calcularMediana(arrayRe);
+  int pulseGe = calcularMediana(arrayGe);
+  int pulseBe = calcularMediana(arrayBe);
 
   // Imprime os valores filtrados
   Serial.print("RED = ");
@@ -267,7 +265,7 @@ void verde() {
 
       delay(2000); //Feito
     }else{*/
-      if ((pulseGd < (pulseBd - 5)) && (pulseGd < (pulseRd - 5)) && (pulseGd > 20) && (pulseGd < 150)) {
+      if ((pulseGd < (pulseBd - 5)) && (pulseGd < (pulseRd - 5)) && (pulseGd > 20)) {
         Serial.println("Direita verde");
         analogWrite(enable1, 0); // Esquerda Frente
         digitalWrite(sentido1, LOW);
@@ -323,7 +321,7 @@ void verde() {
 
         delay(600);
       }else{
-        if ((pulseGe < (pulseBe - 0)) && (pulseGe < (pulseRe - 0)) && (pulseGe > 700)) {
+        if ((pulseGe < (pulseBe - 5)) && (pulseGe < (pulseRe - 5)) && (pulseGe > 20)) {
           Serial.print("Esquerda verde");
           analogWrite(enable1, 0); // Esquerda Frente
           digitalWrite(sentido1, LOW);
