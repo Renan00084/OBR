@@ -124,7 +124,7 @@ void loop() {
       digitalWrite(sentido7, HIGH);
       digitalWrite(sentido8, LOW);
 
-      delay(200 );
+      delay(200);
 
     }else{
       if(((leituraIre == LOW) && (leituraIrd == HIGH))){
@@ -189,6 +189,11 @@ void verde() {
   Serial.print(pulseGd);
   Serial.print(" | BLUE = ");
   Serial.println(pulseBd);
+
+  delay(1000);
+
+  //LEITURA ESQUERDA
+  Serial.println("Leitura Esquerda");
 
   // Coleta as amostras (com timeout reduzido para 10ms para leitura mais rápida)
   for (int i = 0; i < numAmostras; i++) {
@@ -265,7 +270,7 @@ void verde() {
 
       delay(2000); //Feito
     }else{*/
-      if ((pulseGd < (pulseBd - 5)) && (pulseGd < (pulseRd - 5)) && (pulseGd > 20)) {
+      if ((pulseGd < (pulseBd - 0)) && (pulseGd > (pulseRd - 0)) && (pulseGd > 90)) {
         Serial.println("Direita verde");
         analogWrite(enable1, 0); // Esquerda Frente
         digitalWrite(sentido1, LOW);
@@ -321,7 +326,7 @@ void verde() {
 
         delay(600);
       }else{
-        if ((pulseGe < (pulseBe - 5)) && (pulseGe < (pulseRe - 5)) && (pulseGe > 20)) {
+        if ((pulseGe < (pulseBe - 0)) && (pulseGe < (pulseRe - 0)) && (pulseGe > 550)) {
           Serial.print("Esquerda verde");
           analogWrite(enable1, 0); // Esquerda Frente
           digitalWrite(sentido1, LOW);
