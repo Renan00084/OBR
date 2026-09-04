@@ -9,9 +9,13 @@ byte ire = 31, ird = 30; //31 fio branco e 32 fio cinza
 /*byte ire = A0, ird = A1;*/
 
 const int numAmostras = 5;
-int arrayR[numAmostras];
-int arrayG[numAmostras];
-int arrayB[numAmostras];
+int arrayRe[numAmostras];
+int arrayGe[numAmostras];
+int arrayBe[numAmostras];
+int arrayRd[numAmostras];
+int arrayGd[numAmostras];
+int arrayBd[numAmostras];
+
 
 byte OUTd = 34, S2d = 32, S3d = 33, pulseRd = 0, pulseGd = 0, pulseBd = 0;
 byte OUTe = 37, S2e = 38, S3e = 39, pulseRe = 0, pulseGe = 0, pulseBe = 0;
@@ -80,7 +84,7 @@ void loop() {
 
     }
 
-    verde();
+    //verde();
 
     Serial.println("Saí do if");
 
@@ -120,7 +124,7 @@ void loop() {
       digitalWrite(sentido7, HIGH);
       digitalWrite(sentido8, LOW);
 
-      delay(200 );
+      delay(200);
 
     }else{
       if(((leituraIre == LOW) && (leituraIrd == HIGH))){
@@ -153,70 +157,69 @@ void verde() {
   //LEITURA SENSOR DIREITA
   Serial.println("Leitura direita");
 
-  //Seleciona leitura com filtro para vermelho
-  digitalWrite(S2d,LOW);
-  digitalWrite(S3d,LOW);
-  delayMicroseconds(50);
+  for (int i = 0; i < numAmostras; i++) {
+    // Vermelho
+    digitalWrite(S2d, LOW);
+    digitalWrite(S3d, LOW);
+    delayMicroseconds(50);
+    arrayRd[i] = pulseIn(OUTd, LOW, 10000);
 
-  //Lê duração do pulso em LOW
-  pulseRd = pulseIn(OUTd, LOW, 25000);
+    // Verde
+    digitalWrite(S2d, HIGH);
+    digitalWrite(S3d, HIGH);
+    delayMicroseconds(50);
+    arrayGd[i] = pulseIn(OUTd, LOW, 10000);
 
-  //Imprime via serial
-  Serial.print(" RED = ");
+    // Azul
+    digitalWrite(S2d, LOW);
+    digitalWrite(S3d, HIGH);
+    delayMicroseconds(50);
+    arrayBd[i] = pulseIn(OUTd, LOW, 10000);
+  }
+
+  // Calcula a mediana
+  int pulseRd = calcularMediana(arrayRd);
+  int pulseGd = calcularMediana(arrayGd);
+  int pulseBd = calcularMediana(arrayBd);
+
+  // Imprime os valores filtrados
+  Serial.print("RED = ");
   Serial.print(pulseRd);
-
-  //Seleciona leitura com filtro para verde
-  digitalWrite(S2d,HIGH);
-  digitalWrite(S3d,HIGH);
-  delayMicroseconds(50);
-
-  //Lê duração do pulso em LOW
-  pulseGd = pulseIn(OUTd, LOW, 25000);
-  
-  //Imprime via serial
-  Serial.print("GREEN = ");
+  Serial.print(" | GREEN = ");
   Serial.print(pulseGd);
-
-  //Seleciona leitura com filtro para azul
-  digitalWrite(S2d, LOW);
-  digitalWrite(S3d,HIGH);
-  delayMicroseconds(50);
-
-  //Lê duração do pulso em LOW
-  pulseBd = pulseIn(OUTd, LOW, 25000);
-
-  //Imprime via serial
-  Serial.print("BLUE = ");
+  Serial.print(" | BLUE = ");
   Serial.println(pulseBd);
 
-  //LEITURA SENSOR ESQUERDA
+  delay(1000);
+
+  //LEITURA ESQUERDA
   Serial.println("Leitura Esquerda");
 
-// Coleta as amostras (com timeout reduzido para 10ms para leitura mais rápida)
+  // Coleta as amostras (com timeout reduzido para 10ms para leitura mais rápida)
   for (int i = 0; i < numAmostras; i++) {
     // Vermelho
     digitalWrite(S2e, LOW);
     digitalWrite(S3e, LOW);
     delayMicroseconds(50);
-    arrayR[i] = pulseIn(OUTe, LOW, 10000);
+    arrayRe[i] = pulseIn(OUTe, LOW, 10000);
 
     // Verde
     digitalWrite(S2e, HIGH);
     digitalWrite(S3e, HIGH);
     delayMicroseconds(50);
-    arrayG[i] = pulseIn(OUTe, LOW, 10000);
+    arrayGe[i] = pulseIn(OUTe, LOW, 10000);
 
     // Azul
     digitalWrite(S2e, LOW);
     digitalWrite(S3e, HIGH);
     delayMicroseconds(50);
-    arrayB[i] = pulseIn(OUTe, LOW, 10000);
+    arrayBe[i] = pulseIn(OUTe, LOW, 10000);
   }
 
   // Calcula a mediana
-  int pulseRe = calcularMediana(arrayR);
-  int pulseGe = calcularMediana(arrayG);
-  int pulseBe = calcularMediana(arrayB);
+  int pulseRe = calcularMediana(arrayRe);
+  int pulseGe = calcularMediana(arrayGe);
+  int pulseBe = calcularMediana(arrayBe);
 
   // Imprime os valores filtrados
   Serial.print("RED = ");
@@ -227,7 +230,7 @@ void verde() {
   Serial.println(pulseBe);
 
   // Validação das leituras
-  if ((pulseGd != 0) && (pulseBd != 0) && (pulseRd != 0)) {
+  if ((pulseGd != 0) && (pulseBd != 0) && (pulseRd != 0) && ((pulseGe != 0) && (pulseBe != 0) && (pulseRe != 0))) {
     // Menor valor de pulso = maior intensidade da cor
     /*if(((pulseGd < (pulseBd - 1)) && (pulseGd < (pulseRd - 1)) && (pulseGd > 20) && (pulseGd < 100)) && ((pulseGe < (pulseBe - 1)) && (pulseGe < (pulseRe - 1)) && (pulseGe > 20) && (pulseGe < 100))){
       Serial.println("Beco sem saída");
@@ -267,7 +270,7 @@ void verde() {
 
       delay(2000); //Feito
     }else{*/
-      if ((pulseGd < (pulseBd - 5)) && (pulseGd < (pulseRd - 5)) && (pulseGd > 20) && (pulseGd < 150)) {
+      if ((pulseGd < (pulseBd - 0)) && (pulseGd > (pulseRd - 0)) && (pulseGd > 90)) {
         Serial.println("Direita verde");
         analogWrite(enable1, 0); // Esquerda Frente
         digitalWrite(sentido1, LOW);
@@ -323,7 +326,7 @@ void verde() {
 
         delay(600);
       }else{
-        if ((pulseGe < (pulseBe - 5)) && (pulseGe < (pulseRe - 5)) && (pulseGe > 20)) {
+        if ((pulseGe < (pulseBe - 0)) && (pulseGe < (pulseRe - 0)) && (pulseGe > 550)) {
           Serial.print("Esquerda verde");
           analogWrite(enable1, 0); // Esquerda Frente
           digitalWrite(sentido1, LOW);
@@ -643,6 +646,65 @@ void desvioE(){
 
   delay(1000);
 
+  //Alinhamento
+  while(leituraIrd == LOW){
+    analogWrite(enable1, 100); // Esquerda Frente
+    digitalWrite(sentido1, LOW);
+    digitalWrite(sentido2, HIGH);
+
+    analogWrite(enable2, 100); // Esquerda Atras
+    digitalWrite(sentido3, HIGH);
+    digitalWrite(sentido4, LOW);
+
+    analogWrite(enable3, 100); // Direita Atras
+    digitalWrite(sentido5, LOW);
+    digitalWrite(sentido6, HIGH);
+
+    analogWrite(enable4, 100); // Direita Frente
+    digitalWrite(sentido7, LOW);
+    digitalWrite(sentido8, HIGH);
+
+    leituraIrd = digitalRead(ird);
+
+  }
+
+  analogWrite(enable1, 0); // Esquerda Frente
+  digitalWrite(sentido1, LOW);
+  digitalWrite(sentido2, LOW);
+
+  analogWrite(enable2, 0); // Esquerda Atras
+  digitalWrite(sentido3, LOW);
+  digitalWrite(sentido4, LOW);
+
+  analogWrite(enable3, 0); // Direita Atras
+  digitalWrite(sentido5, LOW);
+  digitalWrite(sentido6, LOW);
+
+  analogWrite(enable4, 0); // Direita Frente
+  digitalWrite(sentido7, LOW);
+  digitalWrite(sentido8, LOW);
+
+  delay(500);
+
+  //Afastar do objeto
+  analogWrite(enable1, 100); // Esquerda Frente
+  digitalWrite(sentido1, LOW);
+  digitalWrite(sentido2, HIGH);
+
+  analogWrite(enable2, 100); // Esquerda Atras
+  digitalWrite(sentido3, HIGH);
+  digitalWrite(sentido4, LOW);
+
+  analogWrite(enable3, 100); // Direita Atras
+  digitalWrite(sentido5, HIGH);
+  digitalWrite(sentido6, LOW);
+
+  analogWrite(enable4, 100); // Direita Frente
+  digitalWrite(sentido7, HIGH);
+  digitalWrite(sentido8, LOW);
+
+  delay(200);
+
   analogWrite(enable1, 100); // Esquerda Frente
   digitalWrite(sentido1, LOW);
   digitalWrite(sentido2, HIGH);
@@ -659,7 +721,7 @@ void desvioE(){
   digitalWrite(sentido7, LOW);
   digitalWrite(sentido8, HIGH);
 
-  delay(1200); //Feito
+  delay(600); //Feito
 
   analogWrite(enable1, 100); // Esquerda Frente
   digitalWrite(sentido1, HIGH);
@@ -677,7 +739,7 @@ void desvioE(){
   digitalWrite(sentido7, LOW);
   digitalWrite(sentido8, HIGH);
 
-  delay(800); //Feito
+  delay(700); //Feito
 
   analogWrite(enable1, 100); // Esquerda Frente
   digitalWrite(sentido1, HIGH);
@@ -695,7 +757,7 @@ void desvioE(){
   digitalWrite(sentido7, HIGH);
   digitalWrite(sentido8, LOW);
 
-  delay(1500); //Feito
+  delay(900); //Feito
 
   analogWrite(enable1, 100); // Esquerda Frente
   digitalWrite(sentido1, HIGH);
@@ -713,7 +775,7 @@ void desvioE(){
   digitalWrite(sentido7, LOW);
   digitalWrite(sentido8, HIGH);
 
-  delay(500);
+  delay(600);
 
   analogWrite(enable1, 100); // Esquerda Frente
   digitalWrite(sentido1, HIGH);
@@ -731,7 +793,7 @@ void desvioE(){
   digitalWrite(sentido7, HIGH);
   digitalWrite(sentido8, LOW);
 
-  delay(1300);
+  delay(1000);
 
   analogWrite(enable1, 100); // Esquerda Frente
   digitalWrite(sentido1, HIGH);
