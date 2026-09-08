@@ -190,8 +190,6 @@ void verde() {
   Serial.print(" | BLUE = ");
   Serial.println(pulseBd);
 
-  delay(1000);
-
   //LEITURA ESQUERDA
   Serial.println("Leitura Esquerda");
 
@@ -230,7 +228,7 @@ void verde() {
   Serial.println(pulseBe);
 
   // Validação das leituras
-  if ((pulseGd != 0) && (pulseBd != 0) && (pulseRd != 0)) {
+  if ((pulseGd != 0) && (pulseBd != 0) && (pulseRd != 0) && ((pulseGe != 0) && (pulseBe != 0) && (pulseRe != 0))) {
     // Menor valor de pulso = maior intensidade da cor
     /*if(((pulseGd < (pulseBd - 1)) && (pulseGd < (pulseRd - 1)) && (pulseGd > 20) && (pulseGd < 100)) && ((pulseGe < (pulseBe - 1)) && (pulseGe < (pulseRe - 1)) && (pulseGe > 20) && (pulseGe < 100))){
       Serial.println("Beco sem saída");
@@ -326,7 +324,7 @@ void verde() {
 
         delay(600);
       }else{
-        if ((pulseGe < (pulseBe - 0)) && (pulseGe < (pulseRe - 0)) && (pulseGe > 550)) {
+        if ((pulseGe < (pulseBe - 0)) && (pulseGe < (pulseRe - 0)) && (pulseGe > 190) && (pulseGe < 200)) {
           Serial.print("Esquerda verde");
           analogWrite(enable1, 0); // Esquerda Frente
           digitalWrite(sentido1, LOW);
@@ -380,7 +378,7 @@ void verde() {
           digitalWrite(sentido7, LOW);
           digitalWrite(sentido8, HIGH);
 
-          delay(400);
+          delay(600);
 
           Serial.println("Terminou de executar verde esquerda");
 
@@ -646,23 +644,45 @@ void desvioE(){
 
   delay(1000);
 
-  analogWrite(enable1, 100); // Esquerda Frente
-  digitalWrite(sentido1, LOW);
-  digitalWrite(sentido2, HIGH);
+  //Alinhamento
+  /*while(leituraIrd == LOW){
+    analogWrite(enable1, 100); // Esquerda Frente
+    digitalWrite(sentido1, LOW);
+    digitalWrite(sentido2, HIGH);
 
-  digitalWrite(enable2, HIGH); // Esquerda Atras
-  digitalWrite(sentido3, HIGH);
+    analogWrite(enable2, 100); // Esquerda Atras
+    digitalWrite(sentido3, HIGH);
+    digitalWrite(sentido4, LOW);
+
+    analogWrite(enable3, 100); // Direita Atras
+    digitalWrite(sentido5, LOW);
+    digitalWrite(sentido6, HIGH);
+
+    analogWrite(enable4, 100); // Direita Frente
+    digitalWrite(sentido7, LOW);
+    digitalWrite(sentido8, HIGH);
+
+    leituraIrd = digitalRead(ird);
+
+  }
+
+  analogWrite(enable1, 0); // Esquerda Frente
+  digitalWrite(sentido1, LOW);
+  digitalWrite(sentido2, LOW);
+
+  analogWrite(enable2, 0); // Esquerda Atras
+  digitalWrite(sentido3, LOW);
   digitalWrite(sentido4, LOW);
 
-  digitalWrite(enable3, HIGH); // Direita Atras
+  analogWrite(enable3, 0); // Direita Atras
   digitalWrite(sentido5, LOW);
-  digitalWrite(sentido6, HIGH);
+  digitalWrite(sentido6, LOW);
 
-  analogWrite(enable4, 100); // Direita Frente
+  analogWrite(enable4, 0); // Direita Frente
   digitalWrite(sentido7, LOW);
-  digitalWrite(sentido8, HIGH);
+  digitalWrite(sentido8, LOW);
 
-  delay(1200); //Feito
+  delay(500);
 
   analogWrite(enable1, 100); // Esquerda Frente
   digitalWrite(sentido1, HIGH);
@@ -671,6 +691,43 @@ void desvioE(){
   digitalWrite(enable2, HIGH); // Esquerda Atras
   digitalWrite(sentido3, LOW);
   digitalWrite(sentido4, HIGH);
+
+  digitalWrite(enable3, HIGH); // Direita Atras
+  digitalWrite(sentido5, HIGH);
+  digitalWrite(sentido6, LOW);
+
+  analogWrite(enable4, 100); // Direita Frente
+  digitalWrite(sentido7, HIGH);
+  digitalWrite(sentido8, LOW);
+
+  delay(300); //Feito
+
+  //Afastar do objeto
+  analogWrite(enable1, 100); // Esquerda Frente
+  digitalWrite(sentido1, LOW);
+  digitalWrite(sentido2, HIGH);
+
+  analogWrite(enable2, 100); // Esquerda Atras
+  digitalWrite(sentido3, HIGH);
+  digitalWrite(sentido4, LOW);
+
+  analogWrite(enable3, 100); // Direita Atras
+  digitalWrite(sentido5, HIGH);
+  digitalWrite(sentido6, LOW);
+
+  analogWrite(enable4, 100); // Direita Frente
+  digitalWrite(sentido7, HIGH);
+  digitalWrite(sentido8, LOW);
+
+  delay(200);*/
+
+  analogWrite(enable1, 100); // Esquerda Frente
+  digitalWrite(sentido1, LOW);
+  digitalWrite(sentido2, HIGH);
+
+  digitalWrite(enable2, HIGH); // Esquerda Atras
+  digitalWrite(sentido3, HIGH);
+  digitalWrite(sentido4, LOW);
 
   digitalWrite(enable3, HIGH); // Direita Atras
   digitalWrite(sentido5, LOW);
@@ -691,6 +748,24 @@ void desvioE(){
   digitalWrite(sentido4, HIGH);
 
   digitalWrite(enable3, HIGH); // Direita Atras
+  digitalWrite(sentido5, LOW);
+  digitalWrite(sentido6, HIGH);
+
+  analogWrite(enable4, 100); // Direita Frente
+  digitalWrite(sentido7, LOW);
+  digitalWrite(sentido8, HIGH);
+
+  delay(1000); //Feito
+
+  analogWrite(enable1, 100); // Esquerda Frente
+  digitalWrite(sentido1, HIGH);
+  digitalWrite(sentido2, LOW);
+
+  digitalWrite(enable2, HIGH); // Esquerda Atras
+  digitalWrite(sentido3, LOW);
+  digitalWrite(sentido4, HIGH);
+
+  digitalWrite(enable3, HIGH); // Direita Atras
   digitalWrite(sentido5, HIGH);
   digitalWrite(sentido6, LOW);
 
@@ -698,7 +773,7 @@ void desvioE(){
   digitalWrite(sentido7, HIGH);
   digitalWrite(sentido8, LOW);
 
-  delay(1500); //Feito
+  delay(900); //Feito
 
   analogWrite(enable1, 100); // Esquerda Frente
   digitalWrite(sentido1, HIGH);
@@ -716,7 +791,7 @@ void desvioE(){
   digitalWrite(sentido7, LOW);
   digitalWrite(sentido8, HIGH);
 
-  delay(500);
+  delay(600);
 
   analogWrite(enable1, 100); // Esquerda Frente
   digitalWrite(sentido1, HIGH);
@@ -734,7 +809,7 @@ void desvioE(){
   digitalWrite(sentido7, HIGH);
   digitalWrite(sentido8, LOW);
 
-  delay(1300);
+  delay(1000);
 
   analogWrite(enable1, 100); // Esquerda Frente
   digitalWrite(sentido1, HIGH);
