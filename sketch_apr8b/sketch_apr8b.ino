@@ -8,7 +8,7 @@ byte ire = 31, ird = 30; //31 fio branco e 32 fio cinza
 
 /*byte ire = A0, ird = A1;*/
 
-const int numAmostras = 5;
+const int numAmostras = 10;
 int arrayRe[numAmostras];
 int arrayGe[numAmostras];
 int arrayBe[numAmostras];
@@ -84,7 +84,7 @@ void loop() {
 
     }
 
-    //verde();
+    verde();
 
     Serial.println("Saí do if");
 
@@ -189,8 +189,6 @@ void verde() {
   Serial.print(pulseGd);
   Serial.print(" | BLUE = ");
   Serial.println(pulseBd);
-
-  delay(1000);
 
   //LEITURA ESQUERDA
   Serial.println("Leitura Esquerda");
@@ -628,7 +626,7 @@ float obstaculo(){
 }*/
 
 void desvioE(){
-  analogWrite(enable1, 0); // Esquerda Frente
+  /*analogWrite(enable1, 0); // Esquerda Frente
   digitalWrite(sentido1, LOW);
   digitalWrite(sentido2, LOW);
 
@@ -703,7 +701,7 @@ void desvioE(){
   digitalWrite(sentido7, HIGH);
   digitalWrite(sentido8, LOW);
 
-  delay(200);
+  delay(200);*/
 
   analogWrite(enable1, 100); // Esquerda Frente
   digitalWrite(sentido1, LOW);
@@ -971,5 +969,5 @@ int calcularMediana(int v[]) {
       }
     }
   }
-  return v[2]; // Retorna o valor central
+  return v[5]; // Retorna o valor central
 }
