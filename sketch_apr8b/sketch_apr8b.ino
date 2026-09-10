@@ -8,7 +8,7 @@ byte ire = 31, ird = 30; //31 fio branco e 32 fio cinza
 
 /*byte ire = A0, ird = A1;*/
 
-const int numAmostras = 10;
+const int numAmostras = 5;
 int arrayRe[numAmostras];
 int arrayGe[numAmostras];
 int arrayBe[numAmostras];
@@ -194,30 +194,23 @@ void verde() {
   Serial.println("Leitura Esquerda");
 
   // Coleta as amostras (com timeout reduzido para 10ms para leitura mais rápida)
-  for (int i = 0; i < numAmostras; i++) {
-    // Vermelho
-    digitalWrite(S2e, LOW);
-    digitalWrite(S3e, LOW);
-    delayMicroseconds(50);
-    arrayRe[i] = pulseIn(OUTe, LOW, 10000);
+  // Vermelho
+  digitalWrite(S2e, LOW);
+  digitalWrite(S3e, LOW);
+  delayMicroseconds(50);
+  pulseRe = pulseIn(OUTe, LOW, 10000);
 
-    // Verde
-    digitalWrite(S2e, HIGH);
-    digitalWrite(S3e, HIGH);
-    delayMicroseconds(50);
-    arrayGe[i] = pulseIn(OUTe, LOW, 10000);
+  // Verde
+  digitalWrite(S2e, HIGH);
+  digitalWrite(S3e, HIGH);
+  delayMicroseconds(50);
+  pulseGe = pulseIn(OUTe, LOW, 10000);
 
-    // Azul
-    digitalWrite(S2e, LOW);
-    digitalWrite(S3e, HIGH);
-    delayMicroseconds(50);
-    arrayBe[i] = pulseIn(OUTe, LOW, 10000);
-  }
-
-  // Calcula a mediana
-  int pulseRe = calcularMediana(arrayRe);
-  int pulseGe = calcularMediana(arrayGe);
-  int pulseBe = calcularMediana(arrayBe);
+  // Azul
+  digitalWrite(S2e, LOW);
+  digitalWrite(S3e, HIGH);
+  delayMicroseconds(50);
+  pulseBe = pulseIn(OUTe, LOW, 10000);
 
   // Imprime os valores filtrados
   Serial.print("RED = ");
@@ -324,7 +317,7 @@ void verde() {
 
         delay(600);
       }else{
-        if ((pulseGe < (pulseBe - 0)) && (pulseGe < (pulseRe - 0)) && (pulseGe > 190) && (pulseGe < 200)) {
+        if ((pulseGe < (pulseBe - 5)) && (pulseGe < (pulseRe - 5)) && (pulseGe > 150) && (pulseGe < 170)) {
           Serial.print("Esquerda verde");
           analogWrite(enable1, 0); // Esquerda Frente
           digitalWrite(sentido1, LOW);
