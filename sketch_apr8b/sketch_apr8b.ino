@@ -259,7 +259,7 @@ void verde() {
       digitalWrite(sentido7, LOW);
       digitalWrite(sentido8, HIGH);
 
-      delay(2000); //Feito
+      delay(1500); //Feito
     }else{*/
       if ((pulseGd < (pulseBd - 0)) && (pulseGd > (pulseRd - 0)) && (pulseGd > 90)) {
         Serial.println("Direita verde");
