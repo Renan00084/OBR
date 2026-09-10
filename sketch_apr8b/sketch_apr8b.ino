@@ -84,7 +84,7 @@ void loop() {
 
     }
 
-    verde();
+    //verde();
 
     Serial.println("Saí do if");
 
@@ -619,7 +619,7 @@ float obstaculo(){
 }*/
 
 void desvioE(){
-  /*analogWrite(enable1, 0); // Esquerda Frente
+  analogWrite(enable1, 0); // Esquerda Frente
   digitalWrite(sentido1, LOW);
   digitalWrite(sentido2, LOW);
 
@@ -637,7 +637,7 @@ void desvioE(){
 
   delay(1000);
 
-  //Alinhamento
+  //Alinhamento/*
   /*while(leituraIrd == LOW){
     analogWrite(enable1, 100); // Esquerda Frente
     digitalWrite(sentido1, LOW);
@@ -784,7 +784,7 @@ void desvioE(){
   digitalWrite(sentido7, LOW);
   digitalWrite(sentido8, HIGH);
 
-  delay(600);
+  delay(400);
 
   analogWrite(enable1, 100); // Esquerda Frente
   digitalWrite(sentido1, HIGH);
@@ -844,24 +844,6 @@ void desvioD(){
   delay(1000);
 
   analogWrite(enable1, 100); // Esquerda Frente
-  digitalWrite(sentido1, LOW);
-  digitalWrite(sentido2, HIGH);
-
-  digitalWrite(enable2, HIGH); // Esquerda Atras
-  digitalWrite(sentido3, HIGH);
-  digitalWrite(sentido4, LOW);
-
-  digitalWrite(enable3, HIGH); // Direita Atras
-  digitalWrite(sentido5, HIGH);
-  digitalWrite(sentido6, LOW);
-
-  analogWrite(enable4, 100); // Direita Frente
-  digitalWrite(sentido7, HIGH);
-  digitalWrite(sentido8, LOW);
-
-  delay(100); //Feito
-
-  analogWrite(enable1, 100); // Esquerda Frente
   digitalWrite(sentido1, HIGH);
   digitalWrite(sentido2, LOW);
 
@@ -877,7 +859,7 @@ void desvioD(){
   digitalWrite(sentido7, HIGH);
   digitalWrite(sentido8, LOW);
 
-  delay(1300); //Feito
+  delay(900); //Feito
 
   analogWrite(enable1, 100); // Esquerda Frente
   digitalWrite(sentido1, HIGH);
@@ -913,7 +895,7 @@ void desvioD(){
   digitalWrite(sentido7, LOW);
   digitalWrite(sentido8, HIGH);
 
-  delay(1200); //Feito
+  delay(1100); //Feito
 
   analogWrite(enable1, 100); // Esquerda Frente
   digitalWrite(sentido1, HIGH);
@@ -949,7 +931,7 @@ void desvioD(){
   digitalWrite(sentido7, LOW);
   digitalWrite(sentido8, HIGH);
 
-  delay(1200);
+  delay(900);
 
   analogWrite(enable1, 100); // Esquerda Frente
   digitalWrite(sentido1, HIGH);
