@@ -68,7 +68,6 @@ void setup() {
 void loop() {
   leituraIre = digitalRead(ire);
   leituraIrd = digitalRead(ird);
-  delay(1000);
 
   if(((leituraIre == HIGH) && (leituraIrd == HIGH)) || ((leituraIre == LOW) && (leituraIrd == LOW))){
     //reto
@@ -125,7 +124,7 @@ void loop() {
       digitalWrite(sentido7, HIGH);
       digitalWrite(sentido8, LOW);
 
-      delay(200);
+      delay(300);
 
     }else{
       if(((leituraIre == LOW) && (leituraIrd == HIGH))){
@@ -147,7 +146,7 @@ void loop() {
         digitalWrite(sentido7, HIGH);
         digitalWrite(sentido8, LOW);
 
-        delay(200);
+        delay(300);
 
       }
     }
@@ -158,7 +157,25 @@ void verde() {
   //LEITURA SENSOR DIREITA
   Serial.println("Leitura direita");
 
-  for (int i = 0; i < numAmostras; i++) {
+  digitalWrite(S2d, LOW);
+  digitalWrite(S3d, LOW);
+  delayMicroseconds(50);
+  pulseRd = pulseIn(OUTd, LOW, 10000);
+
+  // Verde
+  digitalWrite(S2d, HIGH);
+  digitalWrite(S3d, HIGH);
+  delayMicroseconds(50);
+  pulseGd = pulseIn(OUTd, LOW, 10000);
+
+  // Azul
+  digitalWrite(S2d, LOW);
+  digitalWrite(S3d, HIGH);
+  delayMicroseconds(50);
+  pulseBd = pulseIn(OUTd, LOW, 10000);
+
+
+  /*for (int i = 0; i < numAmostras; i++) {
     // Vermelho
     digitalWrite(S2d, LOW);
     digitalWrite(S3d, LOW);
@@ -181,7 +198,7 @@ void verde() {
   // Calcula a mediana
   int pulseRd = calcularMediana(arrayRd);
   int pulseGd = calcularMediana(arrayGd);
-  int pulseBd = calcularMediana(arrayBd);
+  int pulseBd = calcularMediana(arrayBd);*/
 
   // Imprime os valores filtrados
   Serial.print("RED = ");
@@ -196,7 +213,7 @@ void verde() {
 
   // Coleta as amostras (com timeout reduzido para 10ms para leitura mais rápida)
   // Vermelho
-  /*digitalWrite(S2e, LOW);
+  digitalWrite(S2e, LOW);
   digitalWrite(S3e, LOW);
   delayMicroseconds(50);
   pulseRe = pulseIn(OUTe, LOW, 10000);
@@ -211,9 +228,9 @@ void verde() {
   digitalWrite(S2e, LOW);
   digitalWrite(S3e, HIGH);
   delayMicroseconds(50);
-  pulseBe = pulseIn(OUTe, LOW, 10000);*/
+  pulseBe = pulseIn(OUTe, LOW, 10000);
 
-  for (int i = 0; i < numAmostras; i++) {
+  /*for (int i = 0; i < numAmostras; i++) {
     // Vermelho
     digitalWrite(S2e, LOW);
     digitalWrite(S3e, LOW);
@@ -236,7 +253,7 @@ void verde() {
   // Calcula a mediana
   int pulseRe = calcularMediana(arrayRe);
   int pulseGe = calcularMediana(arrayGe);
-  int pulseBe = calcularMediana(arrayBe);
+  int pulseBe = calcularMediana(arrayBe);*/
 
   // Imprime os valores filtrados
   Serial.print("RED = ");
@@ -247,7 +264,7 @@ void verde() {
   Serial.println(pulseBe);
 
   // Validação das leituras
-  if ((pulseGd != 0) && (pulseBd != 0) && (pulseRd != 0) && ((pulseGe != 0) && (pulseBe != 0) && (pulseRe != 0))) {
+  if ((pulseGd != 0) && (pulseBd != 0) && (pulseRd != 0) || ((pulseGe != 0) && (pulseBe != 0) && (pulseRe != 0))) {
     // Menor valor de pulso = maior intensidade da cor
     /*if(((pulseGd < (pulseBd - 1)) && (pulseGd < (pulseRd - 1)) && (pulseGd > 20) && (pulseGd < 100)) && ((pulseGe < (pulseBe - 1)) && (pulseGe < (pulseRe - 1)) && (pulseGe > 20) && (pulseGe < 100))){
       Serial.println("Beco sem saída");
@@ -287,7 +304,7 @@ void verde() {
 
       delay(1500); //Feito
     }else{*/
-      if ((pulseGd < (pulseBd - 0)) && (pulseGd > (pulseRd - 0)) && (pulseGd > 90)) {
+      if ((pulseGd < (pulseBd - 0)) && (pulseGd > (pulseRd - 0)) && (pulseGd > 21) && (pulseGd < 30)) {
         Serial.println("Direita verde");
         analogWrite(enable1, 0); // Esquerda Frente
         digitalWrite(sentido1, LOW);
@@ -343,7 +360,7 @@ void verde() {
 
         delay(600);
       }else{
-        if ((pulseGe < (pulseBe - 5)) && (pulseGe < (pulseRe - 5)) && (pulseGe > 150) && (pulseGe < 170)) {
+        if ((pulseGe < (pulseBe - 5)) && (pulseGe < (pulseRe - 5)) && (pulseGe > 200) && (pulseGe < 220)) {
           Serial.print("Esquerda verde");
           analogWrite(enable1, 0); // Esquerda Frente
           digitalWrite(sentido1, LOW);
